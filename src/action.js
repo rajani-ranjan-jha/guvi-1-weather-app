@@ -39,7 +39,7 @@ async function getCurrentOpenWeather(
   weatherData,
   setWeatherData
 ) {
-  try {
+  if (currentLocation.lat && currentLocation.lon) {try {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation.lat}&lon=${currentLocation.lon}&appid=${OPEN_WEATHER_API}`
     );
@@ -55,10 +55,12 @@ async function getCurrentOpenWeather(
     });
     // console.log(data)
     return;
-  } catch (error) {
+  } catch (error) { 
     console.warn("OpenWeatherMap error:", error);
-  }
-}
+  }} else {
+    console.warn("Current location not found")
+  }}
+
 
 
 async function getCurrentWeatherBit(
@@ -102,11 +104,13 @@ async function GetHourlyForecast(
   hourlyForecast,
   setHourlyForecast
 ) {
-  try {
+  if (currentLocation.lat && currentLocation.lon){
+    try {
     const responsey = await fetch(
       `https://api.weatherbit.io/v2.0/forecast/hourly?lat=${currentLocation.lat}&lon=${currentLocation.lon}&key=${WEATHER_BIT_API}`
     );
     const data = await responsey.json();
+    console.log(data)
     setHourlyForecast(
       data.data.filter(
         (item) =>
@@ -115,9 +119,10 @@ async function GetHourlyForecast(
       )
     );
   } catch (error) {
-    console.warn("error while trying to get hourly forecast:", error);
-  }
-}
+    console.warn("error while trying to get hourly forecast:", error)
+  }} else {
+    console.warn("Current location not found")
+  }}
 
 
 async function GetDailyForecast(
@@ -125,17 +130,20 @@ async function GetDailyForecast(
   dailyForecast,
   setDailyForecast
 ) {
+  if (currentLocation.lat && currentLocation.lon){
   try {
     const responsez = await fetch(
       `https://api.weatherbit.io/v2.0/forecast/daily?lat=${currentLocation.lat}&lon=${currentLocation.lon}&key=${WEATHER_BIT_API}`
     );
     const data = await responsez.json();
+    console.log(data)
     setDailyForecast(data.data.slice(0, 7));
   } catch (error) {
     console.warn("error while trying to get daily forecast:", error);
   }
-}
-
+  } else {
+    console.warn("Current location not found")
+  }}
 
 export {
   getLocationFromIPInfo,

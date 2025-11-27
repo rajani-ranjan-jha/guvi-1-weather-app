@@ -94,7 +94,7 @@ function Weather() {
     >
       <h1 className='text-4xl py-5 font-semibold'>Weather App</h1>
 
-      {weatherData.length == 0 || hourlyForecast.length == 0 || dailyForecast.length == 0 ? (<div className='w-full h-100 md:w-4/5 px-5 py-10 blur-1 border-2 border-white  rounded-2xl flex flex-col justify-center items-center gap-6'>
+      {weatherData.length == 0 && hourlyForecast.length == 0 && dailyForecast.length == 0 ? (<div className='w-full h-100 md:w-4/5 px-5 py-10 blur-1 border-2 border-white  rounded-2xl flex flex-col justify-center items-center gap-6'>
         <p className='text-4xl text-center font-light bg-red-700 px-4 py-2 rounded-lg'>Loading Failed!!</p>
         <p className='text-2xl text-center'>Check your internet connection or try again later</p>
       </div>)
